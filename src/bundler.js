@@ -3,6 +3,11 @@ const path = require('path');
 
 
 module.exports = function generateBundle(options = {}) {
+  const configPath = path.resolve('scss-bundling.config.json');
+  if (fs.existsSync(configPath)) {
+    options = require(configPath);
+  }
+
   const rootDir = path.resolve(options.rootDir || 'src/styles');
   const outputFile = path.resolve(options.outputFile || path.join(rootDir, 'bundle.scss'));
   const ignoredFiles = ['bundle.scss', ...options.ignore || []];
